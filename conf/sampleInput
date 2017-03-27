@@ -1,0 +1,20 @@
+{
+     "upperRightXco": 5,
+     "upperRightYco": 5,
+     "numOfRov": 2,
+     "rover":
+      [
+          {
+	     "roverXco": 1,
+	     "roverYco": 2,
+	     "roverFace": "N",
+         "roverCmd": "LMLMLMLMM"
+	  },
+          {
+	     "roverXco": 3,
+	     "roverYco": 3,
+	     "roverFace": "E",
+         "roverCmd": "MMRMMRMRRM"
+	  }
+      ]
+}
