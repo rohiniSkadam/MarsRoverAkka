@@ -13,21 +13,5 @@ case class Plateau(
                   )
 
 object Plateau {
-  implicit var implicitRoverWrites = new Format[Plateau] {
-
-    def writes(s: Plateau): JsValue = {
-      Json.obj("upperRightXco" -> JsNumber(s.upperRightXco),
-        "upperRightYco" -> JsNumber(s.upperRightYco),
-        "numOfRov" -> JsNumber(s.numOfRov))
-    }
-
-    def reads(json: JsValue): JsResult[Plateau] = {
-      val upperRightXco = (json \ "upperRightXco").as[Int]
-      val upperRightYco = (json \ "upperRightYco").as[Int]
-      val numOfRov = (json \ "numOfRov").as[Int]
-      val rovers: List[Rover] = (json \ "rover").as[JsArray].value.map(r => r.as[Rover]).toList
-
-      JsSuccess(Plateau(upperRightXco, upperRightYco, numOfRov, rovers))
-    }
-  }
+  implicit val plateauFormat = Json.format[Plateau]
 }

@@ -1,30 +1,33 @@
 package controllers
 
+import akka.actor.Actor
 import models.Rover
 
 /**
   * Created by synerzip on 21/2/17.
   */
-object RoverController {
-  /**
-    * Function to fire commands for Rover r
-    *
-    * @param rover - Rover Object which contains current position of Rover
-    */
-  def fireCommand(rover: Rover): Rover = {
-    var rov = rover
-    val cmdArray = rov.roverCmd.split("")
-    val rcmd: Array[String] = cmdArray
-    rcmd.foreach {
-      case "L" =>
-        rov = moveLeft(rov)
-      case "R" =>
-        rov = moveRight(rov)
-      case "M" =>
-        rov = move(rov)
-      case _ => println("Invalid Command")
+
+class RoverController extends Actor {
+
+  def receive = {
+    case rover: List[Rover] => {
+      val newList = rover.map(r => {
+        var rov = r
+        val cmdArray = rov.roverCmd.split("")
+        val rcmd: Array[String] = cmdArray
+        rcmd.foreach {
+          case "L" =>
+            rov = moveLeft(rov)
+          case "R" =>
+            rov = moveRight(rov)
+          case "M" =>
+            rov = move(rov)
+          case _ => println("Invalid Command")
+        }
+        rov
+      })
+      sender ! newList
     }
-    rov
   }
 
   /**
@@ -46,7 +49,6 @@ object RoverController {
       case _ => println("Invalid Face Direction")
         rover.copy()
     }
-
   }
 
   /**

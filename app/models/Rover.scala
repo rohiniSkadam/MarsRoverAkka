@@ -12,8 +12,9 @@ case class Rover(
                   roverFace: String,
                   roverCmd: String
                 )
-
 object Rover {
+ // implicit val roverFormat=Json.format[Rover]
+
   implicit var implicitRoverWrites = new Format[Rover] {
 
     def writes(s: Rover): JsValue = {
@@ -30,5 +31,4 @@ object Rover {
       JsSuccess(Rover(roverXco, roverYco, roverFace, roverCmd))
     }
   }
-
 }
